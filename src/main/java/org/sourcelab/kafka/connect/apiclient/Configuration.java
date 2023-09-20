@@ -54,6 +54,8 @@ public final class Configuration {
     // Optional Proxy Authentication.
     private String proxyUsername = null;
     private String proxyPassword = null;
+    
+    private String encoding = "utf8";
 
     /**
      * Default Constructor.
@@ -174,6 +176,11 @@ public final class Configuration {
         this.connectionTimeToLiveInSeconds = connectionTimeToLiveInSeconds;
         return this;
     }
+    
+    public Configuration useEncoding(final String encoding) {
+    	this.encoding = encoding;
+    	return this;
+    }
 
     public String getProxyHost() {
         return proxyHost;
@@ -234,8 +241,13 @@ public final class Configuration {
     public String getBasicAuthPassword() {
         return basicAuthPassword;
     }
+    
 
-    @Override
+    public String getEncoding() {
+		return encoding;
+	}
+
+	@Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder("Configuration{")
             .append("apiHost='").append(apiHost).append('\'')

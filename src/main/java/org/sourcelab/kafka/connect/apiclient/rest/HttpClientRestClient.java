@@ -74,7 +74,7 @@ public class HttpClientRestClient implements RestClient {
         new BasicHeader("Accept", "application/json"),
         new BasicHeader("Content-Type", "application/json")
     ));
-
+    
     /**
      * Save a copy of the configuration.
      */
@@ -237,6 +237,7 @@ public class HttpClientRestClient implements RestClient {
             "HttpClientConfigHook::modifyHttpClientBuilder() must return non-null instance."
         );
         httpClient = clientBuilder.build();
+        
     }
 
     @Override
@@ -344,8 +345,8 @@ public class HttpClientRestClient implements RestClient {
 
             // Convert to Json
             final String jsonPayloadStr = JacksonFactory.newInstance().writeValueAsString(requestBody);
-
-            post.setEntity(new StringEntity(jsonPayloadStr));
+            
+            post.setEntity(new StringEntity(jsonPayloadStr, configuration.getEncoding()));
 
             logger.debug("Executing request {} with {}", post.getRequestLine(), jsonPayloadStr);
 
@@ -377,7 +378,7 @@ public class HttpClientRestClient implements RestClient {
 
             // Convert to Json and submit as payload.
             final String jsonPayloadStr = JacksonFactory.newInstance().writeValueAsString(requestBody);
-            put.setEntity(new StringEntity(jsonPayloadStr));
+            put.setEntity(new StringEntity(jsonPayloadStr, configuration.getEncoding()));
 
             logger.debug("Executing request {} with {}", put.getRequestLine(), jsonPayloadStr);
 
